@@ -24,31 +24,44 @@ class TokenApi():
     def get(self):
         response = requests.post(self.url + '/sean')
         assert response.status_code == 201
-        token=response.json()['token']
+        token = response.json()['token']
         return token
+
 
 class TokenUtils():
     @staticmethod
     def build_headers(token):
-        headers={'user': 'sean', 'token': token}
+        headers = {'user': 'sean', 'token': token}
         return headers
 
 class BooksApi():
     def __init__(self, token):
-        self.url=build_url("books")
+        self.url = build_url("books")
         self.token = token
 
     def create(self):
-        book_json={"title": "The Life and Times of Bob", "sub_title": None, "author": "Bob the Builder",
+        book_json = {"title": "The Life and Times of Bob", "sub_title": None, "author": "Bob the Builder",
             "publisher": "Dorset House Publishing", "year": 2019, "pages": 666}
 
         response = requests.post(self.url, json=book_json,
-                               headers = TokenUtils.build_headers(self.token))
+                               headers=TokenUtils.build_headers(self.token))
         assert response.status_code == 201
         return response.json()
 
     def delete(self, id):
-        url = self.url + '/'+ id
-        response = requests.delete(url, headers = TokenUtils.build_headers(self.token))
+        url = self.url + '/' + id
+        response = requests.delete(
+            url, headers=TokenUtils.build_headers(self.token))
 
         assert response.status_code == 200
+
+    def get_book(self, id):
+        response = requests.get(self.url + '/' + id)
+        assert response.status_code == 200
+        return response.json()
+
+    def get_books(self):
+        response = requests.get(self.url)
+        assert response.status_code == 200
+        return response.json()
+        
