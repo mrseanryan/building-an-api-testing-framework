@@ -39,6 +39,7 @@ class BooksApi():
         self.url = build_url("books")
         self.token = token
 
+    # TODO add params for title, author ...
     def create(self):
         book_json = {"title": "The Life and Times of Bob", "sub_title": None, "author": "Bob the Builder",
             "publisher": "Dorset House Publishing", "year": 2019, "pages": 666}
