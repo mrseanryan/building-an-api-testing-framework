@@ -101,6 +101,8 @@ make_put_request_and_check_response("put a book - WITH token - non-existing book
 
 make_put_request_and_check_response("put a book - WITH token - existing book", 'http://localhost:8000/books/9b30d321-d242-444f-b2db-884d04a4d806', book_json, 200, headers)
 
+make_put_request_and_check_response("put a book - NO token - existing book", 'http://localhost:8000/books/9b30d321-d242-444f-b2db-884d04a4d806', book_json, 401)
+
 # return code: 201  
 # return body: token (json)
 
